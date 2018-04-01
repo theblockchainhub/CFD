@@ -1,27 +1,22 @@
 # Deploying a Multi-Org Network
 
 > **Work of:** Ilyas Bakouch, Westley Hubert and Marilyn Finnie.
+
+## Verifying cards have been succefully added
+
+[Imgur](https://i.imgur.com/3BEH1FP.png)
+![Verifying cards have been succefully added](https://i.imgur.com/3BEH1FP.png)
+
+## Importing the cards to the business network
+
+![Importing the cards to the business network](https://i.imgur.com/bp0ngY4.png)
+
+## Starting the Network
+
+Using the endorsement policy, and giving `Alice` and `Bob` ability to interact with the network by specifying their certificates.
+
+![Image of Yaktocat](https://i.imgur.com/y7XZAZI.png)
   
-## Network components
-
-The following network is made up of several components:
-
--   Two peer nodes for  `Org1`, named  `peer0.org1.example.com`  and  `peer1.org1.example.com`.
-    -   The request port for  `peer0`  is 7051.
-    -   The event hub port for  `peer0`  is 7053.
-    -   The request port for  `peer1`  is 8051.
-    -   The event hub port for  `peer1`  is 8053.
--   A single CA (Certificate Authority) for  `Org1`, named  `ca.org1.example.com`.
-    -   The CA port is 7054.
--   Two peer nodes for  `Org2`, named  `peer0.org2.example.com`  and  `peer1.org2.example.com`.
-    -   The request port for  `peer0`  is 9051.
-    -   The event hub port for  `peer0`  is 9053.
-    -   The request port for  `peer1`  is 10051.
-    -   The event hub port for  `peer1`  is 10053.
--   A single CA (Certificate Authority) for  `Org2`, named  `ca.org2.example.com`.
-    -   The CA port is 8054.
--   A single orderer node, named  `orderer.example.com`.
-    -   The orderer port is 7050.
 
 ## Users
 - The organization `Org1` is configured with a user named `Admin@org1.example.com`. This user is an administrator.
@@ -73,3 +68,24 @@ alice@trade-network.card
 bob@trade-network.card
 ```
 - The business network card that `Bob`, the business network administrator for `Org2`, can use to access the business network.
+
+## Network components
+
+The following network is made up of several components:
+
+-   Two peer nodes for  `Org1`, named  `peer0.org1.example.com`  and  `peer1.org1.example.com`.
+    -   The request port for  `peer0`  is 7051.
+    -   The event hub port for  `peer0`  is 7053.
+    -   The request port for  `peer1`  is 8051.
+    -   The event hub port for  `peer1`  is 8053.
+-   A single CA (Certificate Authority) for  `Org1`, named  `ca.org1.example.com`.
+    -   The CA port is 7054.
+-   Two peer nodes for  `Org2`, named  `peer0.org2.example.com`  and  `peer1.org2.example.com`.
+    -   The request port for  `peer0`  is 9051.
+    -   The event hub port for  `peer0`  is 9053.
+    -   The request port for  `peer1`  is 10051.
+    -   The event hub port for  `peer1`  is 10053.
+-   A single CA (Certificate Authority) for  `Org2`, named  `ca.org2.example.com`.
+    -   The CA port is 8054.
+-   A single orderer node, named  `orderer.example.com`.
+    -   The orderer port is 7050.
