@@ -1,4 +1,6 @@
-## Build Your First Network (BYFN)
+## How to submit the capstone project
 
-The directions for using this are documented in the Hyperledger Fabric
-["Build Your First Network"](http://hyperledger-fabric.readthedocs.io/en/latest/build_network.html) tutorial.
+- Clone this repo
+- Checkout a branch out of master using your names as a branch name
+- Commit your code in the newly created branch
+- Push.
