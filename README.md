@@ -17,6 +17,13 @@ Using the endorsement policy, and giving `Alice` and `Bob` ability to interact w
 
 ![Image of Yaktocat](https://i.imgur.com/y7XZAZI.png)
   
+## A glimpse into the running peers and nodes
+
+- Four couch db containers
+- Two Peer nodes for each Organization
+- One Orderer node
+
+![Glipmse inside the network](https://i.imgur.com/zCKdBAv.png)
 
 ## Users
 - The organization `Org1` is configured with a user named `Admin@org1.example.com`. This user is an administrator.
