@@ -1,6 +1,7 @@
 # Deploying a Multi-Org Network
 
-> **Work of:** Ilyas Bakouch, Westley Hubert and Marilyn Finnie.
+> A two organizations network represented by two users Alice and Bob by `Ilyas Bakouch`, `Westley Hubert` and `Marilyn Finnie`.
+
 
 ## Verifying cards have been succefully added
 
