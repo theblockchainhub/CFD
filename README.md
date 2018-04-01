@@ -4,7 +4,6 @@
 
 ## Verifying cards have been succefully added
 
-[Imgur](https://i.imgur.com/3BEH1FP.png)
 ![Verifying cards have been succefully added](https://i.imgur.com/3BEH1FP.png)
 
 ## Importing the cards to the business network
