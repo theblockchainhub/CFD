@@ -1,6 +1,1 @@
-## How to submit the capstone project
-
-- Clone this repo
-- Create your branch with your names
-- Commit your code in the newly created branch
-- Push...
+Capstone submission for Lyle and Kabir. The blockchain project was built using Fabric Composer (https://composer-playground.mybluemix.net) and in this repo is the deployable .bna file. The other files are attached for reference.
