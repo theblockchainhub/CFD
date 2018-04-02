@@ -1,0 +1,61 @@
+namespace org.cfd.capstone
+
+enum Currency {
+  o CAD
+  o USD
+  o GBP
+  o EUR
+}
+
+enum MetalType {
+  o Gold
+  o Silver
+}
+
+asset BaseAsset identified by assetID {
+  o String assetID 
+    o String description
+    --> Owner owner
+}
+
+asset Cash extends BaseAsset {
+  o Double amount
+    o Currency currecy
+}
+
+asset Metal extends BaseAsset {
+  o Double weight
+    o MetalType metal
+}
+
+
+/*asset MonetaryInstrument identified by MonetaryInstrumentID {
+  o String MonetaryInstrumentID
+  o String Description
+  o Double amount
+  --> Customer customer
+}
+
+asset Metal identified by MetalID {
+  o String MetalID
+  o String TransactionDescription
+  o Double amount
+  --> Customer customer
+}
+*/
+
+participant Owner identified by ownerID {
+  o String ownerID
+  o String firstName
+  o String lastName
+}
+
+transaction CashTransaction {
+  --> Cash cash
+  --> Owner newOwner
+}
+
+transaction MetalTransaction {
+  --> Metal metal
+  --> Owner newOwner
+}

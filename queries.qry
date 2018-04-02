@@ -1,0 +1,10 @@
+query getAllCash {
+  description: "Getting all Cash assets"
+  statement: SELECT org.cfd.capstone.Cash
+}
+
+query getAllMetal {
+  description: "Getting all Metal assets"
+  statement: SELECT org.cfd.capstone.Metal
+}
+
