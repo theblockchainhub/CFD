@@ -1,0 +1,438 @@
+*** Certified Fabric Developer Network (CFDN) Test Documentation ***
+
+*** Specify location of .bin files (to avoid Cryptogen error) ***
+
+atc-vince@atcvince-VirtualBox:~/Downloads/fabric/fabric-samples/cfd-network$ export PATH=~/Downloads/fabric/bin:$PATH
+
+*** Generate CFDN Network ***
+
+atc-vince@atcvince-VirtualBox:~/Downloads/fabric/fabric-samples/cfd-network$ ./cfdn.sh -m generate
+Generating certs and genesis block for with channel 'mychannel' and CLI timeout of '10' seconds and CLI delay of '3' seconds
+Continue? [Y/n] y
+proceeding ...
+/home/atc-vince/Downloads/fabric/bin/cryptogen
+
+##########################################################
+##### Generate certificates using cryptogen tool #########
+##########################################################
++ cryptogen generate --config=./crypto-config.yaml
+comp1.example.com
+comp2.example.com
++ res=0
++ set +x
+
+/home/atc-vince/Downloads/fabric/bin/configtxgen
+##########################################################
+#########  Generating Orderer Genesis block ##############
+##########################################################
++ configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
+2018-04-02 23:08:50.452 EDT [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-04-02 23:08:50.479 EDT [msp] getMspConfig -> INFO 002 Loading NodeOUs
+2018-04-02 23:08:50.480 EDT [msp] getMspConfig -> INFO 003 Loading NodeOUs
+2018-04-02 23:08:50.480 EDT [common/tools/configtxgen] doOutputBlock -> INFO 004 Generating genesis block
+2018-04-02 23:08:50.482 EDT [common/tools/configtxgen] doOutputBlock -> INFO 005 Writing genesis block
++ res=0
++ set +x
+
+#################################################################
+### Generating channel configuration transaction 'channel.tx' ###
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID mychannel
+2018-04-02 23:08:50.526 EDT [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-04-02 23:08:50.538 EDT [common/tools/configtxgen] doOutputChannelCreateTx -> INFO 002 Generating new channel configtx
+2018-04-02 23:08:50.539 EDT [msp] getMspConfig -> INFO 003 Loading NodeOUs
+2018-04-02 23:08:50.539 EDT [msp] getMspConfig -> INFO 004 Loading NodeOUs
+2018-04-02 23:08:50.589 EDT [common/tools/configtxgen] doOutputChannelCreateTx -> INFO 005 Writing new channel tx
++ res=0
++ set +x
+
+#################################################################
+#######    Generating anchor peer update for Comp1MSP   ##########
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Comp1MSPanchors.tx -channelID mychannel -asOrg Comp1MSP
+2018-04-02 23:08:50.614 EDT [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-04-02 23:08:50.644 EDT [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 002 Generating anchor peer update
+2018-04-02 23:08:50.646 EDT [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 003 Writing anchor peer update
++ res=0
++ set +x
+
+#################################################################
+#######    Generating anchor peer update for Comp2MSP   ##########
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Comp2MSPanchors.tx -channelID mychannel -asOrg Comp2MSP
+2018-04-02 23:08:50.681 EDT [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-04-02 23:08:50.704 EDT [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 002 Generating anchor peer update
+2018-04-02 23:08:50.707 EDT [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 003 Writing anchor peer update
++ res=0
++ set +x
+
+*** Bring CFDN Up ***
+
+atc-vince@atcvince-VirtualBox:~/Downloads/fabric/fabric-samples/cfd-network$ ./cfdn.sh -m up
+Starting with channel 'mychannel' and CLI timeout of '10' seconds and CLI delay of '3' seconds
+Continue? [Y/n] y
+proceeding ...
+2018-04-03 03:14:16.582 UTC [main] main -> INFO 001 Exiting.....
+LOCAL_VERSION=1.1.0
+DOCKER_IMAGE_VERSION=1.1.0
+Creating network "net_cfdn" with the default driver
+Creating volume "net_orderer.example.com" with default driver
+Creating volume "net_peer0.comp1.example.com" with default driver
+Creating volume "net_peer1.comp1.example.com" with default driver
+Creating volume "net_peer0.comp2.example.com" with default driver
+Creating volume "net_peer1.comp2.example.com" with default driver
+Creating peer0.comp1.example.com ... done
+Creating peer0.comp2.example.com ... done
+Creating peer1.comp2.example.com ... done
+Creating orderer.example.com     ... done
+Creating peer1.comp1.example.com ... done
+Creating cli                     ... done
+
+ ____    _____      _      ____    _____ 
+/ ___|  |_   _|    / \    |  _ \  |_   _|
+\___ \    | |     / _ \   | |_) |   | |  
+ ___) |   | |    / ___ \  |  _ <    | |  
+|____/    |_|   /_/   \_\ |_| \_\   |_|  
+
+Certified Fabric Developer Network (CFDN)
+
+Channel name : mychannel
+Creating channel...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp1MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/users/Admin@comp1.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.comp1.example.com:7051
++ peer channel create -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/channel.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
++ set +x
+2018-04-03 03:14:22.108 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-04-03 03:14:22.186 UTC [channelCmd] InitCmdFactory -> INFO 002 Endorser and orderer connections initialized
+2018-04-03 03:14:22.390 UTC [main] main -> INFO 003 Exiting.....
+===================== Channel "mychannel" is created successfully ===================== 
+
+Having all peers join the channel...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp1MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/users/Admin@comp1.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.comp1.example.com:7051
++ peer channel join -b mychannel.block
++ res=0
++ set +x
+2018-04-03 03:14:22.500 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-04-03 03:14:22.614 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+2018-04-03 03:14:22.614 UTC [main] main -> INFO 003 Exiting.....
+===================== peer0.org1 joined on the channel "mychannel" ===================== 
+
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp1MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/users/Admin@comp1.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer1.comp1.example.com:7051
++ peer channel join -b mychannel.block
++ res=0
++ set +x
+2018-04-03 03:14:25.705 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-04-03 03:14:25.803 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+2018-04-03 03:14:25.803 UTC [main] main -> INFO 003 Exiting.....
+===================== peer1.org1 joined on the channel "mychannel" ===================== 
+
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/peers/peer0.comp2.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp2MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/users/Admin@comp2.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.comp2.example.com:7051
++ peer channel join -b mychannel.block
++ res=0
++ set +x
+2018-04-03 03:14:28.889 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-04-03 03:14:28.968 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+2018-04-03 03:14:28.968 UTC [main] main -> INFO 003 Exiting.....
+===================== peer0.org2 joined on the channel "mychannel" ===================== 
+
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/peers/peer0.comp2.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp2MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/users/Admin@comp2.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer1.comp2.example.com:7051
++ peer channel join -b mychannel.block
++ res=0
++ set +x
+2018-04-03 03:14:32.048 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-04-03 03:14:32.134 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+2018-04-03 03:14:32.134 UTC [main] main -> INFO 003 Exiting.....
+===================== peer1.org2 joined on the channel "mychannel" ===================== 
+
+Updating anchor peers for comp1...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp1MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/users/Admin@comp1.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.comp1.example.com:7051
++ peer channel update -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/Comp1MSPanchors.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
++ set +x
+2018-04-03 03:14:35.228 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-04-03 03:14:35.251 UTC [channelCmd] update -> INFO 002 Successfully submitted channel update
+2018-04-03 03:14:35.251 UTC [main] main -> INFO 003 Exiting.....
+===================== Anchor peers for org "Comp1MSP" on "mychannel" is updated successfully ===================== 
+
+Updating anchor peers for comp2...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/peers/peer0.comp2.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp2MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/users/Admin@comp2.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.comp2.example.com:7051
++ peer channel update -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/Comp2MSPanchors.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
++ set +x
+2018-04-03 03:14:38.339 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-04-03 03:14:38.369 UTC [channelCmd] update -> INFO 002 Successfully submitted channel update
+2018-04-03 03:14:38.369 UTC [main] main -> INFO 003 Exiting.....
+===================== Anchor peers for org "Comp2MSP" on "mychannel" is updated successfully ===================== 
+
+Installing chaincode on peer0.comp1...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp1MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/users/Admin@comp1.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.comp1.example.com:7051
++ peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
++ res=0
++ set +x
+2018-04-03 03:14:41.450 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-04-03 03:14:41.450 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2018-04-03 03:14:41.636 UTC [main] main -> INFO 003 Exiting.....
+===================== Chaincode is installed on peer0.org1 ===================== 
+
+Install chaincode on peer0.comp2...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/peers/peer0.comp2.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp2MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/users/Admin@comp2.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.comp2.example.com:7051
++ peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
++ res=0
++ set +x
+2018-04-03 03:14:41.720 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-04-03 03:14:41.720 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2018-04-03 03:14:41.927 UTC [main] main -> INFO 003 Exiting.....
+===================== Chaincode is installed on peer0.org2 ===================== 
+
+Instantiating chaincode on peer0.comp2...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/peers/peer0.comp2.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp2MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/users/Admin@comp2.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.comp2.example.com:7051
++ peer chaincode instantiate -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc -l golang -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P 'OR	('\''Comp1MSP.peer'\'','\''Comp2MSP.peer'\'')'
++ res=0
++ set +x
+2018-04-03 03:14:42.025 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-04-03 03:14:42.025 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2018-04-03 03:15:04.586 UTC [main] main -> INFO 003 Exiting.....
+===================== Chaincode Instantiation on peer0.org2 on channel 'mychannel' is successful ===================== 
+
+Querying chaincode on peer0.comp1...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp1MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/users/Admin@comp1.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.comp1.example.com:7051
+===================== Querying on peer0.org1 on channel 'mychannel'... ===================== 
+Attempting to Query peer0.org1 ...3 secs
++ peer chaincode query -C mychannel -n mycc -c '{"Args":["query","a"]}'
++ res=0
++ set +x
+
+2018-04-03 03:15:07.724 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-04-03 03:15:07.724 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+Query Result: 100
+2018-04-03 03:15:31.942 UTC [main] main -> INFO 003 Exiting.....
+===================== Query on peer0.org1 on channel 'mychannel' is successful ===================== 
+Sending invoke transaction on peer0.comp1...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp1MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/users/Admin@comp1.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.comp1.example.com:7051
++ peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc -c '{"Args":["invoke","a","b","10"]}'
++ res=0
++ set +x
+2018-04-03 03:15:32.050 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-04-03 03:15:32.051 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2018-04-03 03:15:32.066 UTC [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 003 Chaincode invoke successful. result: status:200 
+2018-04-03 03:15:32.067 UTC [main] main -> INFO 004 Exiting.....
+===================== Invoke transaction on peer0.org1 on channel 'mychannel' is successful ===================== 
+
+Installing chaincode on peer1.comp2...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/peers/peer0.comp2.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp2MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/users/Admin@comp2.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer1.comp2.example.com:7051
++ peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
++ res=0
++ set +x
+2018-04-03 03:15:32.218 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-04-03 03:15:32.218 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2018-04-03 03:15:32.406 UTC [main] main -> INFO 003 Exiting.....
+===================== Chaincode is installed on peer1.org2 ===================== 
+
+Querying chaincode on peer1.comp2...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/peers/peer0.comp2.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.key
+CORE_PEER_LOCALMSPID=Comp2MSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp1.example.com/peers/peer0.comp1.example.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/comp2.example.com/users/Admin@comp2.example.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer1.comp2.example.com:7051
+===================== Querying on peer1.org2 on channel 'mychannel'... ===================== 
+Attempting to Query peer1.org2 ...3 secs
++ peer chaincode query -C mychannel -n mycc -c '{"Args":["query","a"]}'
++ res=0
++ set +x
+
+2018-04-03 03:15:35.505 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-04-03 03:15:35.505 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+Query Result: 90
+2018-04-03 03:16:01.122 UTC [main] main -> INFO 003 Exiting.....
+===================== Query on peer1.org2 on channel 'mychannel' is successful ===================== 
+
+========= All GOOD, CFDN execution completed =========== 
+
+
+ _____   _   ___   _     
+| ____| | | |   \ | |    
+| |_    | | | |\ \| |    
+|  _|   | | | | \   |    
+| |     | | | |  \  |  _ 
+|_|     |_| |_|   \_| |_|
+
+*** Bring the CFDN Down ***
+
+atc-vince@atcvince-VirtualBox:~/Downloads/fabric/fabric-samples/cfd-network$ ./cfdn.sh -m down
+Stopping with channel 'mychannel' and CLI timeout of '10' seconds and CLI delay of '3' seconds
+Continue? [Y/n] y
+proceeding ...
+Stopping cli                     ... done
+Stopping peer1.comp1.example.com ... done
+Stopping peer0.comp2.example.com ... done
+Stopping orderer.example.com     ... done
+Stopping peer1.comp2.example.com ... done
+Stopping peer0.comp1.example.com ... done
+Removing cli                     ... done
+Removing peer1.comp1.example.com ... done
+Removing peer0.comp2.example.com ... done
+Removing orderer.example.com     ... done
+Removing peer1.comp2.example.com ... done
+Removing peer0.comp1.example.com ... done
+Removing network net_cfdn
+Removing volume net_orderer.example.com
+Removing volume net_peer0.comp1.example.com
+Removing volume net_peer1.comp1.example.com
+Removing volume net_peer0.comp2.example.com
+Removing volume net_peer1.comp2.example.com
+Removing network net_cfdn
+WARNING: Network net_cfdn not found.
+Removing volume net_orderer.example.com
+WARNING: Volume net_orderer.example.com not found.
+Removing volume net_peer0.comp1.example.com
+WARNING: Volume net_peer0.comp1.example.com not found.
+Removing volume net_peer1.comp1.example.com
+WARNING: Volume net_peer1.comp1.example.com not found.
+Removing volume net_peer0.comp2.example.com
+WARNING: Volume net_peer0.comp2.example.com not found.
+Removing volume net_peer1.comp2.example.com
+WARNING: Volume net_peer1.comp2.example.com not found.
+9b89b9242ad8
+84397a7e7dc0
+7275efb6313d
+Untagged: dev-peer1.comp2.example.com-mycc-1.0-e365e5763f2712789c3ee27428ece9dc449a96ce306910c1f6345eac7c9b6cdb:latest
+Deleted: sha256:064723d979bc7ebc9fdde820b639fd75cd1301d1d1ace3c7936184c173888767
+Deleted: sha256:68fff7301ff80407420a4b32d0c7fcbaa3050823e8c8903c4a018f1f3d55682e
+Deleted: sha256:4d5c2f38497948a42d9d362ea40132f9d8d3dbd163ec5f9e2d30e6cc7fee2510
+Deleted: sha256:6dde56f328d4fde04ce9e48b98d6760a98b8bf78ca4689c83b48dfa1bcc56f91
+Untagged: dev-peer0.comp1.example.com-mycc-1.0-f38e8b58cdf326a976f04bd2b58eaa86441404ee9beac4d99351abcd0c803d58:latest
+Deleted: sha256:aaeb483e580d70aecd3d06b3f850355c7d4270184f676081623bd359425a38f9
+Deleted: sha256:bf63f5cc61a7fd142abf6a859c5ad704dc630f18f40b152f308949358d911c24
+Deleted: sha256:2121d1d8078f8e418ee6fb2bdce727623fed16e31386d480730c14a65e54bbd8
+Deleted: sha256:29362da09111407dc0d81893017fb200868020610a8f8d28dbe33cec4e65e00c
+Untagged: dev-peer0.comp2.example.com-mycc-1.0-30e236a595c13decbf0754f9c176849d67eec8f40686785882c4dda1a52c74bc:latest
+Deleted: sha256:8b7dcb7fec74f5921e80d7686ccae7a642a1edc3153cf5fc4780bf5d51f96381
+Deleted: sha256:cbf9b0b00727c7baa850e22c78f1076eca3104508693c54c74944d0f7f60d4e8
+Deleted: sha256:5b6c8573524cdc4fbb95f4e7fa3acebc3e9bbf02885cc9700a48ca233ce2f83b
+Deleted: sha256:0631be7db489abb4dcc7b187283fe9f1659049284fc52de6a480814b592d2c12
+
+
+
+
