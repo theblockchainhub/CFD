@@ -99,13 +99,13 @@ joinChannelWithRetry () {
 	cat log.txt
 	if [ $res -ne 0 -a $COUNTER -lt $MAX_RETRY ]; then
 		COUNTER=` expr $COUNTER + 1`
-		echo "peer${PEER}.org${ORG} failed to join the channel, Retry after $DELAY seconds"
+		echo "peer${PEER}.comp${ORG} failed to join the channel, Retry after $DELAY seconds"
 		sleep $DELAY
 		joinChannelWithRetry $PEER $ORG
 	else
 		COUNTER=1
 	fi
-	verifyResult $res "After $MAX_RETRY attempts, peer${PEER}.org${ORG} has failed to Join the Channel"
+	verifyResult $res "After $MAX_RETRY attempts, peer${PEER}.comp${ORG} has failed to Join the Channel"
 }
 
 installChaincode () {
@@ -118,8 +118,8 @@ installChaincode () {
 	res=$?
         set +x
 	cat log.txt
-	verifyResult $res "Chaincode installation on peer${PEER}.org${ORG} has Failed"
-	echo "===================== Chaincode is installed on peer${PEER}.org${ORG} ===================== "
+	verifyResult $res "Chaincode installation on peer${PEER}.comp${ORG} has Failed"
+	echo "===================== Chaincode is installed on peer${PEER}.comp${ORG} ===================== "
 	echo
 }
 
@@ -143,8 +143,8 @@ instantiateChaincode () {
                 set +x
 	fi
 	cat log.txt
-	verifyResult $res "Chaincode instantiation on peer${PEER}.org${ORG} on channel '$CHANNEL_NAME' failed"
-	echo "===================== Chaincode Instantiation on peer${PEER}.org${ORG} on channel '$CHANNEL_NAME' is successful ===================== "
+	verifyResult $res "Chaincode instantiation on peer${PEER}.comp${ORG} on channel '$CHANNEL_NAME' failed"
+	echo "===================== Chaincode Instantiation on peer${PEER}.comp${ORG} on channel '$CHANNEL_NAME' is successful ===================== "
 	echo
 }
 
@@ -158,7 +158,7 @@ upgradeChaincode () {
     res=$?
 	set +x
     cat log.txt
-    verifyResult $res "Chaincode upgrade on org${ORG} peer${PEER} has Failed"
+    verifyResult $res "Chaincode upgrade on comp${ORG} peer${PEER} has Failed"
     echo "===================== Chaincode is upgraded on org${ORG} peer${PEER} ===================== "
     echo
 }
@@ -168,7 +168,7 @@ chaincodeQuery () {
   ORG=$2
   setGlobals $PEER $ORG
   EXPECTED_RESULT=$3
-  echo "===================== Querying on peer${PEER}.org${ORG} on channel '$CHANNEL_NAME'... ===================== "
+  echo "===================== Querying on peer${PEER}.comp${ORG} on channel '$CHANNEL_NAME'... ===================== "
   local rc=1
   local starttime=$(date +%s)
 
@@ -177,7 +177,7 @@ chaincodeQuery () {
   while test "$(($(date +%s)-starttime))" -lt "$TIMEOUT" -a $rc -ne 0
   do
      sleep $DELAY
-     echo "Attempting to Query peer${PEER}.org${ORG} ...$(($(date +%s)-starttime)) secs"
+     echo "Attempting to Query peer${PEER}.comp${ORG} ...$(($(date +%s)-starttime)) secs"
      set -x
      peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}' >&log.txt
 	 res=$?
@@ -188,9 +188,9 @@ chaincodeQuery () {
   echo
   cat log.txt
   if test $rc -eq 0 ; then
-	echo "===================== Query on peer${PEER}.org${ORG} on channel '$CHANNEL_NAME' is successful ===================== "
+	echo "===================== Query on peer${PEER}.comp${ORG} on channel '$CHANNEL_NAME' is successful ===================== "
   else
-	echo "!!!!!!!!!!!!!!! Query result on peer${PEER}.org${ORG} is INVALID !!!!!!!!!!!!!!!!"
+	echo "!!!!!!!!!!!!!!! Query result on peer${PEER}.comp${ORG} is INVALID !!!!!!!!!!!!!!!!"
         echo "================== ERROR !!! FAILED to execute End-2-End Scenario =================="
 	echo
 	exit 1
@@ -269,7 +269,7 @@ chaincodeInvoke () {
                 set +x
 	fi
 	cat log.txt
-	verifyResult $res "Invoke execution on peer${PEER}.org${ORG} failed "
-	echo "===================== Invoke transaction on peer${PEER}.org${ORG} on channel '$CHANNEL_NAME' is successful ===================== "
+	verifyResult $res "Invoke execution on peer${PEER}.comp${ORG} failed "
+	echo "===================== Invoke transaction on peer${PEER}.comp${ORG} on channel '$CHANNEL_NAME' is successful ===================== "
 	echo
 }

@@ -13,6 +13,8 @@ In this Project:
 2) Organization "Org1" has been replaced by "Comp1"
 3) Organization "Org2" has been replaced by "Comp2"
 
+After cloning this repository, put the "cfd-network" folder in the fabric-samples folder (i.e. same level as first-network)
+
 This Capstone Project was successfully tested on an Oracle VM VirtualBox with:
 - Ubuntu 16.04.4 LTS 
 - Docker CE 18.03.0-ce, build 0520e24
