@@ -1,0 +1,154 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+
+  orderer.ehealthontario.ca:
+    container_name: orderer.ehealthontario.ca
+    image: hyperledger/fabric-orderer:$IMAGE_TAG
+    environment:
+      - ORDERER_GENERAL_LOGLEVEL=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      # enabled TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+    working_dir: $HOME/work/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+    - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+    - ../crypto-config/ordererOrganizations/ehealthontario.ca/orderers/orderer.ehealthontario.ca/msp:/var/hyperledger/orderer/msp
+    - ../crypto-config/ordererOrganizations/ehealthontario.ca/orderers/orderer.ehealthontario.ca/tls/:/var/hyperledger/orderer/tls
+    - orderer.ehealthontario.ca:/var/hyperledger/production/orderer
+    ports:
+      - 7050:7050
+
+  peer0.ehealthontario.ca:
+    container_name: peer0.ehealthontario.ca
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.ehealthontario.ca
+      - CORE_PEER_ADDRESS=peer0.ehealthontario.ca:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.ehealthontario.ca:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.ehealthontario.ca:7051
+      - CORE_PEER_LOCALMSPID=eHealthMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/ehealthontario.ca/peers/peer0.ehealthontario.ca/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/ehealthontario.ca/peers/peer0.ehealthontario.ca/tls:/etc/hyperledger/fabric/tls
+        - peer0.ehealthontario.ca:/var/hyperledger/production
+    ports:
+      - 7051:7051
+      - 7053:7053
+
+  peer1.ehealthontario.ca:
+    container_name: peer1.ehealthontario.ca
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.ehealthontario.ca
+      - CORE_PEER_ADDRESS=peer1.ehealthontario.ca:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.ehealthontario.ca:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.ehealthontario.ca:7051
+      - CORE_PEER_LOCALMSPID=eHealthMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/ehealthontario.ca/peers/peer1.ehealthontario.ca/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/ehealthontario.ca/peers/peer1.ehealthontario.ca/tls:/etc/hyperledger/fabric/tls
+        - peer1.ehealthontario.ca:/var/hyperledger/production
+
+    ports:
+      - 8051:7051
+      - 8053:7053
+
+  peer0.appletreemedicalgroup.com:
+    container_name: peer0.appletreemedicalgroup.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.appletreemedicalgroup.com
+      - CORE_PEER_ADDRESS=peer0.appletreemedicalgroup.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.appletreemedicalgroup.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.appletreemedicalgroup.com:7051
+      - CORE_PEER_LOCALMSPID=AppletreeMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/appletreemedicalgroup.com/peers/peer0.appletreemedicalgroup.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/appletreemedicalgroup.com/peers/peer0.appletreemedicalgroup.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.appletreemedicalgroup.com:/var/hyperledger/production
+    ports:
+      - 9051:7051
+      - 9053:7053
+
+  peer1.appletreemedicalgroup.com:
+    container_name: peer1.appletreemedicalgroup.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.appletreemedicalgroup.com
+      - CORE_PEER_ADDRESS=peer1.appletreemedicalgroup.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.appletreemedicalgroup.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.appletreemedicalgroup.com:7051
+      - CORE_PEER_LOCALMSPID=AppletreeMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/appletreemedicalgroup.com/peers/peer1.appletreemedicalgroup.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/appletreemedicalgroup.com/peers/peer1.appletreemedicalgroup.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.appletreemedicalgroup.com:/var/hyperledger/production
+    ports:
+      - 10051:7051
+      - 10053:7053
+
+  peer0.sunlife.ca:
+    container_name: peer0.sunlife.ca
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.sunlife.ca
+      - CORE_PEER_ADDRESS=peer0.sunlife.ca:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.sunlife.ca:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.sunlife.ca:7051
+      - CORE_PEER_LOCALMSPID=SunlifeMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/sunlife.ca/peers/peer0.sunlife.ca/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/sunlife.ca/peers/peer0.sunlife.ca/tls:/etc/hyperledger/fabric/tls
+        - peer0.sunlife.ca:/var/hyperledger/production
+    ports:
+      - 11051:7051
+      - 11053:7053
+
+  peer1.sunlife.ca:
+    container_name: peer1.sunlife.ca
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.sunlife.ca
+      - CORE_PEER_ADDRESS=peer1.sunlife.ca:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.sunlife.ca:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.sunlife.ca:7051
+      - CORE_PEER_LOCALMSPID=SunlifeMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/sunlife.ca/peers/peer1.sunlife.ca/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/sunlife.ca/peers/peer1.sunlife.ca/tls:/etc/hyperledger/fabric/tls
+        - peer1.sunlife.ca:/var/hyperledger/production
+    ports:
+      - 12051:7051
+      - 12053:7053

@@ -1,0 +1,112 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+volumes:
+  orderer.ehealthontario.ca:
+  peer0.ehealthontario.ca:
+  peer1.ehealthontario.ca:
+  peer0.appletreemedicalgroup.com:
+  peer1.appletreemedicalgroup.com:
+  peer0.sunlife.ca:
+  peer1.sunlife.ca:
+
+networks:
+  byfn:
+
+services:
+
+  orderer.ehealthontario.ca:
+    extends:
+      file:   base/docker-compose-base.yaml
+      service: orderer.ehealthontario.ca
+    container_name: orderer.ehealthontario.ca
+    networks:
+      - byfn
+
+  peer0.ehealthontario.ca:
+    container_name: peer0.ehealthontario.ca
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.ehealthontario.ca
+    networks:
+      - byfn
+
+  peer1.ehealthontario.ca:
+    container_name: peer1.ehealthontario.ca
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.ehealthontario.ca
+    networks:
+      - byfn
+
+  peer0.appletreemedicalgroup.com:
+    container_name: peer0.appletreemedicalgroup.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.appletreemedicalgroup.com
+    networks:
+      - byfn
+
+  peer1.appletreemedicalgroup.com:
+    container_name: peer1.appletreemedicalgroup.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.appletreemedicalgroup.com
+    networks:
+      - byfn
+
+  peer0.sunlife.ca:
+    container_name: peer0.sunlife.ca
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.sunlife.ca
+    networks:
+      - byfn
+
+  peer1.sunlife.ca:
+    container_name: peer1.sunlife.ca
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.sunlife.ca
+    networks:
+      - byfn
+
+  cli:
+    container_name: cli
+    image: hyperledger/fabric-tools:$IMAGE_TAG
+    tty: true
+    stdin_open: true
+    environment:
+      - GOPATH=$HOME/work
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_LOGGING_LEVEL=INFO
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.ehealthontario.ca:7051
+      - CORE_PEER_LOCALMSPID=eHealthMSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=$HOME/work/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/ehealthontario.ca/peers/peer0.ehealthontario.ca/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=$HOME/work/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/ehealthontario.ca/peers/peer0.ehealthontario.ca/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=$HOME/work/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/ehealthontario.ca/peers/peer0.ehealthontario.ca/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=$HOME/work/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/ehealthontario.ca/users/Admin@ehealthontario.ca/msp
+    working_dir: $HOME/work/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./../chaincode/:$HOME/work/src/github.com/chaincode
+        - ./crypto-config:$HOME/work/src/github.com/hyperledger/fabric/peer/crypto/
+        - ./scripts:$HOME/work/src/github.com/hyperledger/fabric/peer/scripts/
+        - ./channel-artifacts:$HOME/work/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    depends_on:
+      - orderer.ehealthontario.ca
+      - peer0.ehealthontario.ca
+      - peer1.ehealthontario.ca
+      - peer0.appletreemedicalgroup.com
+      - peer1.appletreemedicalgroup.com
+      - peer0.sunlife.ca
+      - peer1.sunlife.ca
+    networks:
+      - byfn
