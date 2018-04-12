@@ -1,0 +1,285 @@
+Starting with channel 'mychannel' and CLI timeout of '10' seconds and CLI delay of '3' seconds
+proceeding ...
+LOCAL_VERSION=1.1.0
+DOCKER_IMAGE_VERSION=1.1.0
+/Users/parvezraj/Downloads/capstone/first-network/../bin/cryptogen
+
+##########################################################
+##### Generate certificates using cryptogen tool #########
+##########################################################
+aktex.cfd01.com
+insurex.cfd01.com
+
+shippex.cfd01.com
+Successfully generated certificates...
+
+/Users/parvezraj/Downloads/capstone/first-network/../bin/configtxgen
+##########################################################
+#########  Generating Orderer Genesis block ##############
+##########################################################
+
+#################################################################
+### Generating channel configuration transaction 'channel.tx' ###
+#################################################################
+
+#################################################################
+#######    Generating anchor peer update for aktexMSP   ##########
+#################################################################
+
+#################################################################
+#######    Generating anchor peer update for insurexMSP   ##########
+#################################################################
+
+
+#################################################################
+#######    Generating anchor peer update for shippexMSP   ##########
+#################################################################
+
+Creating network "net_byfn" with the default driver
+Creating volume "net_orderer.cfd01.com" with default driver
+Creating volume "net_peer0.aktex.cfd01.com" with default driver
+Creating volume "net_peer1.aktex.cfd01.com" with default driver
+Creating volume "net_peer0.insurex.cfd01.com" with default driver
+Creating volume "net_peer1.insurex.cfd01.com" with default driver
+Creating volume "net_peer0.shippex.cfd01.com" with default driver
+Creating volume "net_peer1.shippex.cfd01.com" with default driver
+Creating peer0.aktex.cfd01.com ... 
+Creating peer1.aktex.cfd01.com ... 
+Creating orderer.cfd01.com     ... 
+Creating peer0.insurex.cfd01.com ... 
+Creating peer1.insurex.cfd01.com ... 
+Creating peer0.shippex.cfd01.com ... 
+Creating peer1.shippex.cfd01.com ... 
+[6A[2KCreating peer1.aktex.cfd01.com   ... [32mdone[0m[6B[7A[2KCreating peer0.aktex.cfd01.com   ... [32mdone[0m[7B[3A[2KCreating peer0.shippex.cfd01.com ... [32mdone[0m[3B[5A[2KCreating orderer.cfd01.com       ... [32mdone[0m[5B[4A[2KCreating peer0.insurex.cfd01.com ... [32mdone[0m[4B[2A[2KCreating peer1.insurex.cfd01.com ... [32mdone[0m[2B[1A[2KCreating peer1.shippex.cfd01.com ... [32mdone[0m[1BCreating cli                     ... 
+[1A[2KCreating cli                     ... [32mdone[0m[1B
+ ____    _____      _      ____    _____ 
+/ ___|  |_   _|    / \    |  _ \  |_   _|
+\___ \    | |     / _ \   | |_) |   | |  
+ ___) |   | |    / ___ \  |  _ <    | |  
+|____/    |_|   /_/   \_\ |_| \_\   |_|  
+
+Build your first network (BYFN) end-to-end test
+
+Channel name : mychannel
+Creating channel...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.key
+CORE_PEER_LOCALMSPID=aktexMSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/users/Admin@aktex.cfd01.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.aktex.cfd01.com:7051
+2018-04-01 00:52:41.214 UTC [channelCmd] InitCmdFactory -> INFO 001[0m Endorser and orderer connections initialized
+2018-04-01 00:52:41.331 UTC [channelCmd] InitCmdFactory -> INFO 002[0m Endorser and orderer connections initialized
+2018-04-01 00:52:41.536 UTC [main] main -> INFO 003[0m Exiting.....
+===================== Channel "mychannel" is created successfully ===================== 
+
+Having all peers join the channel...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.key
+CORE_PEER_LOCALMSPID=aktexMSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/users/Admin@aktex.cfd01.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.aktex.cfd01.com:7051
+2018-04-01 00:52:41.685 UTC [channelCmd] InitCmdFactory -> INFO 001[0m Endorser and orderer connections initialized
+2018-04-01 00:52:41.736 UTC [channelCmd] executeJoin -> INFO 002[0m Successfully submitted proposal to join channel
+2018-04-01 00:52:41.736 UTC [main] main -> INFO 003[0m Exiting.....
+===================== peer0.org1 joined on the channel "mychannel" ===================== 
+
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.key
+CORE_PEER_LOCALMSPID=aktexMSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/users/Admin@aktex.cfd01.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer1.aktex.cfd01.com:7051
+2018-04-01 00:52:44.846 UTC [channelCmd] InitCmdFactory -> INFO 001[0m Endorser and orderer connections initialized
+2018-04-01 00:52:44.904 UTC [channelCmd] executeJoin -> INFO 002[0m Successfully submitted proposal to join channel
+2018-04-01 00:52:44.904 UTC [main] main -> INFO 003[0m Exiting.....
+===================== peer1.org1 joined on the channel "mychannel" ===================== 
+
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/shippex.cfd01.com/peers/peer0.shippex.cfd01.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.key
+CORE_PEER_LOCALMSPID=shippexMSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/shippex.cfd01.com/users/Admin@shippex.cfd01.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.shippex.cfd01.com:7051
+2018-04-01 00:52:48.022 UTC [channelCmd] InitCmdFactory -> INFO 001[0m Endorser and orderer connections initialized
+2018-04-01 00:52:48.067 UTC [channelCmd] executeJoin -> INFO 002[0m Successfully submitted proposal to join channel
+2018-04-01 00:52:48.067 UTC [main] main -> INFO 003[0m Exiting.....
+===================== peer0.org3 joined on the channel "mychannel" ===================== 
+
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/shippex.cfd01.com/peers/peer0.shippex.cfd01.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.key
+CORE_PEER_LOCALMSPID=shippexMSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/shippex.cfd01.com/users/Admin@shippex.cfd01.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer1.shippex.cfd01.com:7051
+2018-04-01 00:52:51.157 UTC [channelCmd] InitCmdFactory -> INFO 001[0m Endorser and orderer connections initialized
+2018-04-01 00:52:51.207 UTC [channelCmd] executeJoin -> INFO 002[0m Successfully submitted proposal to join channel
+2018-04-01 00:52:51.207 UTC [main] main -> INFO 003[0m Exiting.....
+===================== peer1.org3 joined on the channel "mychannel" ===================== 
+
+Updating anchor peers for aktex...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.key
+CORE_PEER_LOCALMSPID=aktexMSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/users/Admin@aktex.cfd01.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.aktex.cfd01.com:7051
+2018-04-01 00:52:54.323 UTC [channelCmd] InitCmdFactory -> INFO 001[0m Endorser and orderer connections initialized
+2018-04-01 00:52:54.355 UTC [channelCmd] update -> INFO 002[0m Successfully submitted channel update
+2018-04-01 00:52:54.355 UTC [main] main -> INFO 003[0m Exiting.....
+===================== Anchor peers for org "aktexMSP" on "mychannel" is updated successfully ===================== 
+
+Updating anchor peers for insurex...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/insurex.cfd01.com/peers/peer0.insurex.cfd01.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.key
+CORE_PEER_LOCALMSPID=insurexMSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/insurex.cfd01.com/users/Admin@insurex.cfd01.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.insurex.cfd01.com:7051
+2018-04-01 00:52:57.490 UTC [channelCmd] InitCmdFactory -> INFO 001[0m Endorser and orderer connections initialized
+2018-04-01 00:52:57.507 UTC [channelCmd] update -> INFO 002[0m Successfully submitted channel update
+2018-04-01 00:52:57.507 UTC [main] main -> INFO 003[0m Exiting.....
+===================== Anchor peers for org "insurexMSP" on "mychannel" is updated successfully ===================== 
+
+Updating anchor peers for shippex...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/shippex.cfd01.com/peers/peer0.shippex.cfd01.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.key
+CORE_PEER_LOCALMSPID=shippexMSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/shippex.cfd01.com/users/Admin@shippex.cfd01.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.shippex.cfd01.com:7051
+2018-04-01 00:53:00.630 UTC [channelCmd] InitCmdFactory -> INFO 001[0m Endorser and orderer connections initialized
+2018-04-01 00:53:00.664 UTC [channelCmd] update -> INFO 002[0m Successfully submitted channel update
+2018-04-01 00:53:00.664 UTC [main] main -> INFO 003[0m Exiting.....
+===================== Anchor peers for org "shippexMSP" on "mychannel" is updated successfully ===================== 
+
+Installing chaincode on peer0.aktex...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.key
+CORE_PEER_LOCALMSPID=aktexMSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/users/Admin@aktex.cfd01.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.aktex.cfd01.com:7051
+/opt/gopath/src/github.com/hyperledger/fabric/peer
+2018-04-01 00:53:03.764 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001[0m Using default escc
+2018-04-01 00:53:03.764 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002[0m Using default vscc
+2018-04-01 00:53:03.765 UTC [container] WriteFolderToTarPackage -> INFO 003[0m rootDirectory = ../../../chaincode/chaincode_cfd01/node
+2018-04-01 00:53:03.782 UTC [main] main -> INFO 004[0m Exiting.....
+===================== Chaincode is installed on peer0.org1 ===================== 
+
+Install chaincode on peer0.insurex...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/insurex.cfd01.com/peers/peer0.insurex.cfd01.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.key
+CORE_PEER_LOCALMSPID=insurexMSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/insurex.cfd01.com/users/Admin@insurex.cfd01.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.insurex.cfd01.com:7051
+/opt/gopath/src/github.com/hyperledger/fabric/peer
+2018-04-01 00:53:03.895 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001[0m Using default escc
+2018-04-01 00:53:03.895 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002[0m Using default vscc
+2018-04-01 00:53:03.896 UTC [container] WriteFolderToTarPackage -> INFO 003[0m rootDirectory = ../../../chaincode/chaincode_cfd01/node
+2018-04-01 00:53:03.905 UTC [main] main -> INFO 004[0m Exiting.....
+===================== Chaincode is installed on peer0.org2 ===================== 
+
+Install chaincode on peer0.shippex...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/shippex.cfd01.com/peers/peer0.shippex.cfd01.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.key
+CORE_PEER_LOCALMSPID=shippexMSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/shippex.cfd01.com/users/Admin@shippex.cfd01.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.shippex.cfd01.com:7051
+/opt/gopath/src/github.com/hyperledger/fabric/peer
+2018-04-01 00:53:03.992 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001[0m Using default escc
+2018-04-01 00:53:03.992 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002[0m Using default vscc
+2018-04-01 00:53:03.993 UTC [container] WriteFolderToTarPackage -> INFO 003[0m rootDirectory = ../../../chaincode/chaincode_cfd01/node
+2018-04-01 00:53:04.002 UTC [main] main -> INFO 004[0m Exiting.....
+===================== Chaincode is installed on peer0.org3 ===================== 
+
+Instantiating chaincode on peer0.insurex...
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/insurex.cfd01.com/peers/peer0.insurex.cfd01.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.key
+CORE_PEER_LOCALMSPID=insurexMSP
+CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/aktex.cfd01.com/peers/peer0.aktex.cfd01.com/tls/server.crt
+CORE_PEER_TLS_ENABLED=true
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/insurex.cfd01.com/users/Admin@insurex.cfd01.com/msp
+CORE_PEER_ID=cli
+CORE_LOGGING_LEVEL=INFO
+CORE_PEER_ADDRESS=peer0.insurex.cfd01.com:7051
+2018-04-01 00:53:04.147 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001[0m Using default escc
+2018-04-01 00:53:04.147 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002[0m Using default vscc
+Error: Error endorsing chaincode: rpc error: code = Unknown desc = access denied: channel [mychannel] creator org [insurexMSP]
+Usage:
+  peer chaincode instantiate [flags]
+
+Flags:
+  -C, --channelID string            The channel on which this command should be executed
+      --collections-config string   The file containing the configuration for the chaincode's collection
+  -c, --ctor string                 Constructor message for the chaincode in JSON format (default "{}")
+  -E, --escc string                 The name of the endorsement system chaincode to be used for this chaincode
+  -l, --lang string                 Language the chaincode is written in (default "golang")
+  -n, --name string                 Name of the chaincode
+  -P, --policy string               The endorsement policy associated to this chaincode
+  -v, --version string              Version of the chaincode specified in install/instantiate/upgrade commands
+  -V, --vscc string                 The name of the verification system chaincode to be used for this chaincode
+
+Global Flags:
+      --cafile string                       Path to file containing PEM-encoded trusted certificate(s) for the ordering endpoint
+      --certfile string                     Path to file containing PEM-encoded X509 public key to use for mutual TLS communication with the orderer endpoint
+      --clientauth                          Use mutual TLS when communicating with the orderer endpoint
+      --keyfile string                      Path to file containing PEM-encoded private key to use for mutual TLS communication with the orderer endpoint
+      --logging-level string                Default logging level and overrides, see core.yaml for full syntax
+  -o, --orderer string                      Ordering service endpoint
+      --ordererTLSHostnameOverride string   The hostname override to use when validating the TLS connection to the orderer.
+      --tls                                 Use TLS when communicating with the orderer endpoint
+      --transient string                    Transient map of arguments in JSON encoding
+
+!!!!!!!!!!!!!!! Chaincode instantiation on peer0.org2 on channel 'mychannel' failed !!!!!!!!!!!!!!!!
+========= ERROR !!! FAILED to execute End-2-End Scenario ===========
+
+ERROR !!!! Test failed

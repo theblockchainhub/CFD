@@ -1,0 +1,5 @@
+Stopping with channel 'mychannel' and CLI timeout of '10' seconds and CLI delay of '3' seconds
+proceeding ...
+docker-compose-cli.yaml
+---- No containers available for deletion ----
+---- No images available for deletion ----

@@ -1,0 +1,98 @@
+/**
+  * A business network for shipping auctioned items
+  * The items are packaged is temperature controlled and the insurance contracts
+  * will be additionally charged based on the temperature
+  * readings received during the journey to the buyer
+  */
+
+namespace org.cfd01.shipping.auction
+
+/**
+ * Defines a contract between a Shipper and Insurer, paying a set unit price for trenasport. The unit price is multiplied by
+ * a penality depending on to the deviation from the min and max
+ * negociated temperatures for the shipment. The insurer will assess at end of trip
+ */
+
+asset Contract identified by contractId {
+  o String contractId
+  --> Shipper shipper
+  --> Insurer insurer
+  o DateTime arrivalDateTime
+  o Double unitPrice
+  o Double minTemperature
+  o Double maxTemperature
+  o Double minPenaltyFactor
+  o Double maxPenaltyFactor
+}
+
+/**
+ * A type of auctioned item being being tracked as an asset on the ledger and shipped
+ */
+asset AuctionItem identified by itemID {
+  o String itemID
+  o String AuctionItemtype
+  o String ShipmentStatus
+  o Long unitCount
+  o String status
+  o TemperatureReading[] temperatureReadings optional
+
+}
+
+/**
+ * Link the AuctionItem with the shipping transactionntainer
+ */
+
+abstract transaction ShipmentTransaction {
+ --> AuctionItem shipment
+}
+
+/**
+ * An temperature reading for a shipment. E.g. received from a
+ * device within a temperature controlled shipping container
+ */
+transaction TemperatureReading extends ShipmentTransaction {
+  o Double centigrade
+}
+
+/**
+ * A notification that a shipment has been received by the
+ * buyer and that funds should be transferred to the insurer
+ * to the grower to pay for the shipment.
+ */
+transaction ShipmentReceived extends ShipmentTransaction {
+}
+
+/**
+ * An abstract participant type in this business network
+ */
+abstract participant Business identified by email {
+  o String email
+  o String businessname
+  o String address
+  o Double accountBalance
+}
+
+
+/**
+ * A Grower is a type of participant in the network
+ */
+participant AuctionHouse extends Business {
+}
+
+/**
+ * A Shipper is a type of participant in the network
+ */
+participant Shipper extends Business {
+}
+
+/**
+ * An Insurer is a type of participant in the network
+ */
+participant Insurer extends Business {
+}
+
+/**
+ * JUST FOR INITIALIZING A DEMO
+ */
+transaction SetupDemo {
+}
