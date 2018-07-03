@@ -1,0 +1,18 @@
+/**
+ * query file
+ */
+
+query selectPersonByCitizenship{
+    description: "Select a Person by the  Citizenship"
+    statement:
+        SELECT org.cfd02.capstone.Person
+            WHERE ( citizenship == _$citizenship )
+}
+
+query selectPersonByName {
+    description: "Select a Person by the  first and last name"
+    statement:
+        SELECT org.cfd02.capstone.Person
+              WHERE ((firstName == _$fname) AND (lastName == _$lname))
+}
+
